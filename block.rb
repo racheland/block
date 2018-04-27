@@ -17,13 +17,17 @@ class Blockchain
 		"index" => @chain.size + 1,
 		"time" => Time.now,
 		#현재시간을 숫자로 바꿔서 출력 
-		"nonce" => nonce
+		"nonce" => nonce,
+		"previous_address" => last_block.to_s
+
 		}
 		@chain << block
-
-		history.size
+		block
 	end
   
+		def last_block
+			@chain[-1]
+
 	def all_chains
 		@chain
 	end
