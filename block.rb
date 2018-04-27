@@ -6,7 +6,6 @@ class Blockchain
 	def mining
 		
 		history = []
-
 		begin
 			nonce = rand(100000)
 			history << nonce
@@ -18,7 +17,7 @@ class Blockchain
 		"time" => Time.now,
 		#현재시간을 숫자로 바꿔서 출력 
 		"nonce" => nonce,
-		"previous_address" => last_block.to_s
+		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s)
 
 		}
 		@chain << block
@@ -27,6 +26,7 @@ class Blockchain
   
 		def last_block
 			@chain[-1]
+		end
 
 	def all_chains
 		@chain

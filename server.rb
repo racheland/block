@@ -6,7 +6,13 @@ b = Blockchain.new
 #block.rb 의 Blockchain 클래스 불러오기
 
 	get '/' do
-	 b.all_chains.to_s
+		message = ""
+
+	 b.all_chains.each do |a|
+		message << a['index'].to_s + "<br>"
+	end
+
+	message
 	end
 
 	get '/mine' do
