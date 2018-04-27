@@ -6,7 +6,7 @@ b = Blockchain.new
 #block.rb 의 Blockchain 클래스 불러오기
 
 	get '/' do
-	"블럭 리스트 입니다."
+	 b.all_chains.to_s
 	end
 
 	get '/mine' do

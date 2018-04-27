@@ -14,13 +14,19 @@ class Blockchain
 		end while hashed[0..3] != "0000"
 
 		block = {
-		"index" => 1,
-		"time" => 203242354,
-		"nonce" => 3234
+		"index" => @chain.size + 1,
+		"time" => Time.now,
+		#현재시간을 숫자로 바꿔서 출력 
+		"nonce" => nonce
 		}
+		@chain << block
 
 		history.size
-		
 	end
   
+	def all_chains
+		@chain
+	end
+
+
 end
