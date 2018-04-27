@@ -10,7 +10,7 @@ class Blockchain
 			nonce = rand(100000)
 			history << nonce
 			hashed = Digest::SHA256.hexdigest(nonce.to_s)
-		end while hashed[0..3] != "0000"
+		end while hashed[0..2] != "000"
 
 		block = {
 		"index" => @chain.size + 1,
