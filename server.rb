@@ -30,6 +30,9 @@ b = Blockchain.new
 		b.make_a_trans(params["sender"],params["recv"],params["amount"]).to_s
 	end
 
+	get '/new_wallet' do 
+		b.make_a_new_wallet.to_s
+	end
 
 
 

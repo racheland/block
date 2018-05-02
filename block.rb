@@ -1,8 +1,15 @@
+require 'securerandom'
 class Blockchain 
+
 	def initialize
 		@chain = []
 		@trans = []
 	end 
+
+	def make_a_new_wallet
+		SecureRandom.uuid.gsub("-","")
+		#하이푼을 공백으로합친다 gsub
+	end
 
 	def make_a_trans(s,r,a)
 		trans = {
@@ -24,13 +31,14 @@ class Blockchain
 		end while hashed[0..2] != "000"
 
 		block = {
-		"index" => @chain.size + 1,
-		"time" => Time.now,
+		"nHeight" => @chain.size,
+		"nTime" => Time.now.to_i,
 		#현재시간을 숫자로 바꿔서 출력 
-		"nonce" => nonce,
-		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s)
-
+		"nNonce" => nonce,
+		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s),
+		"transactions" => @trans
 		}
+		@trans = []
 		@chain << block
 		block
 	end
