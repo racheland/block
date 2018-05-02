@@ -9,11 +9,12 @@ b = Blockchain.new
 		message = "<center>"
 
 	 b.all_chains.each do |a|
-		message << "번호는 : " + a['index'].to_s + "<br>"
-		message << "nonce는 : " + a['nonce'].to_s + "<br>"
-		message << "시간은 : " + a['time'].to_s + "<br>"
-		message << "앞 주소는 : " + a['previous_address'].to_s + "<br>"
-		message << "내 주소는 : " + Digest::SHA256.hexdigest(a.to_s) + "<br>"
+		message << "BlockHeight : " + a['nHeight'].to_s + "<br>"
+		message << "Time : " + a['nTime'].to_s + "<br>"
+		message << "Nonce : " + a['nNounce'].to_s + "<br>"
+		message << "Previous BlockHash : " + a['previous_address'].to_s + "<br>"
+		message << "Cur_Block : " + Digest::SHA256.hexdigest(a.to_s) + "<br>"
+		message << "Transactions : " + a["transactions"].to_s + "<br>"
 		message << "<hr>"
 	end
 
@@ -26,7 +27,7 @@ b = Blockchain.new
 	end
 
 	get '/trans' do
-		params["sender"] + params["recv"] + params["amount"]
+		b.make_a_trans(params["sender"],params["recv"],params["amount"]).to_s
 	end
 
 
