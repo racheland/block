@@ -4,10 +4,13 @@ class Blockchain
 	def initialize
 		@chain = []
 		@trans = []
+		@wallet = {}
 	end 
 
 	def make_a_new_wallet
-		SecureRandom.uuid.gsub("-","")
+		address = SecureRandom.uuid.gsub("-","")
+		@wallet[address] = 1000
+		@wallet
 		#하이푼을 공백으로합친다 gsub
 	end
 
