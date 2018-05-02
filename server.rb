@@ -34,5 +34,7 @@ b = Blockchain.new
 		b.make_a_new_wallet.to_s
 	end
 
-
+	get '/all_wallet' do
+		b.show_all_wallet.to_s
+	end
 
