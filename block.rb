@@ -7,6 +7,10 @@ class Blockchain
 		@wallet = {}
 	end 
 
+	def show_all_wallet
+		@wallet
+	end
+
 	def make_a_new_wallet
 		address = SecureRandom.uuid.gsub("-","")
 		@wallet[address] = 1000
@@ -15,13 +19,27 @@ class Blockchain
 	end
 
 	def make_a_trans(s,r,a)
-		trans = {
+		if @wallet[s].nil? 
+			#sender 의 값이 0 ㅇㅣ면 
+			"보내는 주소가 잘못되었습니다."
+		elsif @wallet[r].nil?
+			"받는 주소가 잘못되었습니다"
+			#보통 받는주소 체크안함
+		elsif @wallet[s].to_f < a.to_f
+			"돈이 읍써여"
+		else 
+
+			@wallet[s] = @wallet[s].to_f - a.to_f
+			@wallet[r] = @wallet[r].to_f + a.to_f
+		
+			trans = {
 			"sender" => s,
 			"receiver" => r,
 			"amount" => a
-		}
-		@trans << trans
-		@trans
+			}
+			@trans << trans
+			@trans
+		end
 	end
 #end 위에 있는 값이 최종값 = 결과값
 
