@@ -25,4 +25,10 @@ b = Blockchain.new
 	#block.rb의 def된 마이닝을 가져옴. 숫자값을 문자값(string)으로 변경 함
 	end
 
+	get '/trans' do
+		params["sender"]
+	end
+
+
+
 
