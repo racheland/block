@@ -1,10 +1,21 @@
 class Blockchain 
 	def initialize
 		@chain = []
+		@trans = []
 	end 
 
+	def make_a_trans(s,r,a)
+		trans = {
+			"sender" => s,
+			"receiver" => r,
+			"amount" => a
+		}
+		@trans << trans
+		@trans
+	end
+#end 위에 있는 값이 최종값 = 결과값
+
 	def mining
-		
 		history = []
 		begin
 			nonce = rand(100000)
