@@ -26,7 +26,7 @@ b = Blockchain.new
 	end
 
 	get '/trans' do
-		params["sender"]
+		params["sender"] + params["recv"] + params["amount"]
 	end
 
 
