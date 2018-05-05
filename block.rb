@@ -75,14 +75,20 @@ class Blockchain
 	end
 
 	def ask_other_block
-		HTTParty.get("http://localhost:4567/number_of_blocks").body
+		#내노드 주변 호스트의 정보를 보기 
+		message = []
+		@node.each do |n|
+		message << HTTParty.get("http://localhost:" + n + "/number_of_blocks").body
+		end
+		message
 	end
+
 
 	#친구만들기
 	def add_node(node)
 		@node << node
 		@node.uniq!
-		#유니크값만 유
+		#유니크값만 유지
 		@node
 	end
 
