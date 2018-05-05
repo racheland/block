@@ -1,15 +1,19 @@
 require 'securerandom'
+require 'httparty'
+
 class Blockchain 
 
 	def initialize
 		@chain = []
 		@trans = []
 		@wallet = {}
+		@node = []
 	end 
 
 	def show_all_wallet
 		@wallet
 	end
+
 
 	def make_a_new_wallet
 		address = SecureRandom.uuid.gsub("-","")
@@ -29,9 +33,6 @@ class Blockchain
 			"돈이 읍써여"
 		else 
 
-			@wallet[s] = @wallet[s].to_f - a.to_f
-			@wallet[r] = @wallet[r].to_f + a.to_f
-		
 			trans = {
 			"sender" => s,
 			"receiver" => r,
@@ -50,6 +51,7 @@ class Blockchain
 			history << nonce
 			hashed = Digest::SHA256.hexdigest(nonce.to_s)
 		end while hashed[0..2] != "000"
+
 
 		block = {
 		"nHeight" => @chain.size,
@@ -70,6 +72,18 @@ class Blockchain
 
 	def all_chains
 		@chain
+	end
+
+	def ask_other_block
+		HTTParty.get("http://localhost:4567/number_of_blocks").body
+	end
+
+	#친구만들기
+	def add_node(node)
+		@node << node
+		@node.uniq!
+		#유니크값만 유
+		@node
 	end
 
 

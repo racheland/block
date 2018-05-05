@@ -2,8 +2,14 @@ require 'sinatra'
 require './block'
 #block.rb 랑 시나트나랑 연결
 
+
+set :port, 4567
 b = Blockchain.new
 #block.rb 의 Blockchain 클래스 불러오기
+
+get '/number_of_blocks' do 
+	b.all_chains.size.to_s
+end
 
 	get '/' do
 		message = "<center>"
@@ -37,4 +43,15 @@ b = Blockchain.new
 	get '/all_wallet' do
 		b.show_all_wallet.to_s
 	end
+
+
+get '/ask' do 
+	b.ask_other_block.to_s 
+end
+
+#친구리스트 받아오기
+get '/add_node' do
+	b.add_node(params["node"]).to_s
+end
+
 
