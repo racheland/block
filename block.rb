@@ -74,13 +74,26 @@ class Blockchain
 		@chain
 	end
 
-	def ask_other_block
-		#내노드 주변 호스트의 정보를 보기 
-		message = []
-		@node.each do |n|
-		message << HTTParty.get("http://localhost:" + n + "/number_of_blocks").body
+
+	def recv(blocks)
+		blocks.each do |b|
+			@chain << b
 		end
-		message
+		@chain
+	end
+	
+
+	def ask_other_block
+		
+		@node.each do |n|
+		  other_block = HTTParty.get("http://localhost:" + n + "/number_of_blocks").body
+			
+			if @chain.size < other_block.to_i
+			jsoned_chain = @chain.to_json
+			full_chain = HTTParty.get("http://localhost:" + n + "/recv?blocks=" + jsoned_chain).body
+			@chain = JSON.parse(full_chain) 
+			end
+		end	
 	end
 
 
